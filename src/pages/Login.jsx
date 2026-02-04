@@ -1,19 +1,42 @@
 import { useState } from "react";
-import Container from "@mui/material/Container";
-import { StyledIn } from "../component/LogInTf";
-import { Outlinedin } from "../component/OutlinedIn";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { OutlinedInput, TextField, useTheme } from "@mui/material";
+import {
+  Container,
+  Stack,
+  Button,
+  Typography,
+  IconButton,
+  FormControl,
+  InputAdornment,
+  InputLabel,
+} from "@mui/material";
+
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+
+import axios from "axios";
 export default function Login() {
-  const [info, setInfo] = useState({ email: "", password: "" });
+  const theme = useTheme();
+  async function log(email, password) {
+    try {
+      const res = await axios.post(
+        "https://abdullatif1999.pythonanywhere.com/api/token/",
+        {
+          email,
+          password,
+        },
+        { headers: { "Content-Type": "application/json" } },
+      );
+      {
+        console.log(res.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const [info, setInfo] = useState({
+    email: "test3@gmail.com",
+    password: "123456789",
+  });
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -73,7 +96,35 @@ export default function Login() {
           }}
         >
           <Stack spacing={4} sx={{ margin: "20px" }}>
-            <StyledIn
+            <TextField
+              sx={{
+                // Set the color for the inputted text
+                "& .MuiOutlinedInput-input": {
+                  color: theme.palette.text.primary,
+                },
+
+                // Set the color for the label when focused
+                "& label.Mui-focused": {
+                  color: theme.palette.text.primary,
+                },
+                "& label": {
+                  color: theme.palette.text.primary,
+                },
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    //border color
+                    borderColor: theme.palette.text.primary,
+                  },
+                  "&:hover fieldset": {
+                    // Hover border color
+                    borderColor: theme.palette.background.paper,
+                  },
+                  "&.Mui-focused fieldset": {
+                    // Focused border color
+                    borderColor: theme.palette.text.primary,
+                  },
+                },
+              }}
               id="log_email"
               label="Email"
               variant="outlined"
@@ -82,28 +133,19 @@ export default function Login() {
                 setInfo({ ...info, email: e.target.value });
               }}
             />
-            {/* <StyledIn
-          id="log_password"
-          label="Password"
-          variant="outlined"
-          value={info.password}
-          onChange={(e) => {
-            setInfo({ ...info, password: e.target.value });
-          }}
-        /> */}
             <FormControl
               sx={{
                 "& .MuiInputLabel-root.Mui-focused": {
-                  color: "#3a2219",
+                  color: theme.palette.text.primary,
                 },
 
                 "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
                   {
-                    borderColor: "#3a2219",
+                    borderColor: theme.palette.text.primary,
                     borderWidth: "1px",
                   },
                 "& .MuiOutlinedInput-notchedOutline": {
-                  borderColor: "#3a2219",
+                  borderColor: theme.palette.text.primary,
                 },
               }}
               variant="outlined"
@@ -111,13 +153,17 @@ export default function Login() {
               <InputLabel htmlFor="outlined-adornment-password">
                 Password
               </InputLabel>
-              <Outlinedin
+              <OutlinedInput
                 id="outlined-adornment-password"
                 type={showPassword ? "text" : "password"}
+                value={info.password}
+                onChange={(e) => {
+                  setInfo({ ...info, password: e.target.value });
+                }}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
-                      color="#3a2219"
+                      color={theme.palette.text.primary}
                       aria-label={
                         showPassword
                           ? "hide the password"
@@ -129,9 +175,13 @@ export default function Login() {
                       edge="end"
                     >
                       {showPassword ? (
-                        <VisibilityOff style={{ color: "#3a2219" }} />
+                        <VisibilityOff
+                          style={{ color: theme.palette.text.primary }}
+                        />
                       ) : (
-                        <Visibility style={{ color: "#3a2219" }} />
+                        <Visibility
+                          style={{ color: theme.palette.text.primary }}
+                        />
                       )}
                     </IconButton>
                   </InputAdornment>
@@ -161,6 +211,10 @@ export default function Login() {
                 width: "40%",
                 marginTop: "20px",
                 marginBottom: "20px",
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                log(info.email, info.password);
               }}
             >
               Log In
