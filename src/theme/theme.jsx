@@ -13,6 +13,7 @@ const theme = createTheme({
     text: {
       primary: "#3A2119", // Espresso
       secondary: "#957662",
+      white:"#ffffff"
     },
   },
   typography: {

@@ -42,6 +42,7 @@ export default function ServicesSection() {
 
   return (
     <Box
+    id='services'
       sx={{
         py: 6,
         background: "linear-gradient(135deg, #D2E2EC 0%, #ecd4c2 100%)",

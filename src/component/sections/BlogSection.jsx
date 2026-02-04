@@ -64,7 +64,7 @@ const SmallListPost = ({ title, date, category, image }) => {
 const BlogSection = () => {
     const theme = useTheme();
   return (
-    <Box sx={{ py: 10, bgcolor: '#D2E2EC', minHeight: '80vh' }}>
+    <Box sx={{ py: 10, bgcolor: '#D2E2EC', minHeight: '80vh' }} id='blog'>
       <Container maxWidth="lg">
 
       <Box textAlign="center" mb={5}>

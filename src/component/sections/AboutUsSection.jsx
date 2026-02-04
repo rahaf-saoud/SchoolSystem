@@ -25,11 +25,6 @@ export default function AboutUsSection() {
       title: "Proven Results",
       desc: "Trusted by 500+ schools and 10,000+ students achieving excellence.",
     },
-    // {
-    //   icon: MenuBookOutlinedIcon,
-    //   title: "Comprehensive Platform",
-    //   desc: "All-in-one solution for management, classrooms, and analytics.",
-    // },
   ];
 
   return (

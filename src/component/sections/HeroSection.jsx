@@ -21,6 +21,7 @@ export default function HeroSection() {
 
   return (
     <Box
+    id="home"
       sx={{
         position: "relative",
         minHeight: { xs: "auto", md: 700 },
